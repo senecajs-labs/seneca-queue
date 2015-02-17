@@ -1,0 +1,33 @@
+{
+  "name": "seneca-queue",
+  "version": "0.0.1",
+  "description": "A multi-transport job queue for Seneca ",
+  "main": "queue.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcollina/seneca-queue.git"
+  },
+  "keywords": [
+    "seneca",
+    "job",
+    "queue",
+    "task",
+    "async"
+  ],
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcollina/seneca-queue/issues"
+  },
+  "homepage": "https://github.com/mcollina/seneca-queue",
+  "dependencies": {
+    "async": "^0.9.0"
+  },
+  "devDependencies": {
+    "chai": "^2.0.0",
+    "seneca": "^0.5.21"
+  }
+}
