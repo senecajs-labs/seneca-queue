@@ -6,9 +6,10 @@ var expect = require('chai').expect
 describe('seneca queue', function() {
   var s
 
-  beforeEach(function() {
+  beforeEach(function(done) {
     s = seneca()
     s.use(queue)
+    s.ready(done)
   })
 
   it('should process a task', function(done) {
@@ -25,8 +26,12 @@ describe('seneca queue', function() {
       done()
     })
 
-    s.act({ role: 'queue', cmd: 'start' })
-    s.act({ role: 'queue', cmd: 'enqueue', task: task })
+    s.act({ role: 'queue', cmd: 'start' }, function(err) {
+      if (err) { return done(err) }
+      s.act({ role: 'queue', cmd: 'enqueue', task: task }, function(err) {
+        if (err) { return done(err) }
+      })
+    })
   })
 
   it('should not process a task until start is called', function(done) {

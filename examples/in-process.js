@@ -1,12 +1,11 @@
 var s = require('seneca')()
+          .use(require('../'))
 var assert = require('assert')
 
 var task = {
   task: 'my task',
   param: 42
 }
-
-s.use(require('./'))
 
 s.add({
   task: 'my task'
