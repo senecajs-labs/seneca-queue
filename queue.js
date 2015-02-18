@@ -1,5 +1,6 @@
 
-var async = require('async')
+var memory = require('./lib/memory')
+var _ = require('lodash')
 
 function queue(options) {
 
@@ -9,6 +10,7 @@ function queue(options) {
   // These are the defaults. You can override using the _options_ argument.
   // Example: `seneca.use('queue', { concurrency:42 } )`.
   options = seneca.util.deepextend({
+    role: 'queue',
     concurrency: 1
   }, options)
 
@@ -17,43 +19,37 @@ function queue(options) {
   // and expose them via different patterns.
   var role = options.role
 
-  var queue = async.queue(worker, options.concurrency)
-  queue.pause()
+  // hook the in-memory worker only if neeeded
+  var hook = _.memoize(function(cmd) {
+    var hooked = _.find(seneca.list(), function(pattern) {
+      return pattern.role === role && pattern.hook === cmd
+    })
 
-  seneca.add({
-    role: role,
-    cmd: 'start'
-  }, function start(args, cb) {
-    queue.resume()
-    cb()
-  })
-
-  seneca.add({
-    role: role,
-    cmd: 'stop'
-  }, function start(args, cb) {
-    queue.pause()
-    cb()
-  })
-
-  seneca.add({
-    role: role,
-    cmd: 'enqueue'
-  }, function enqueue(args, cb) {
-    if (!args.task) {
-      return cb(new Error('no task specified'))
+    if (!hooked) {
+      memory(role, seneca, options)
     }
 
-    queue.push(args.task)
-    cb()
+    return !!hooked
   })
+
+  function wrapHook(cmd) {
+    seneca.add({
+      role: role,
+      cmd: cmd
+    }, function (args, cb) {
+      delete args.cmd
+      args.hook = cmd
+
+      hook(cmd)
+
+      seneca.act(args, cb)
+    })
+  }
+
+  ['start', 'stop', 'enqueue'].forEach(wrapHook)
 
   return {
     name: role
-  }
-
-  function worker(task, cb) {
-    seneca.act(task, cb)
   }
 }
 
