@@ -9,6 +9,6 @@ s.add({
   setTimeout(cb, 2000)
 })
 
-console.log('worked if you see OK')
+console.log('worked if you see OK two times')
 s.act({ role: 'queue', cmd: 'start' })
 
