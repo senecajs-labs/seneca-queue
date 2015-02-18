@@ -1,6 +1,6 @@
 var s = require('seneca')()
-          .client({ port: 8081, pin: 'cmd:enqueue-remote,queue:q1' })
-          .client({ port: 8082, pin: 'cmd:enqueue-remote,queue:q2' })
+          .client({ type: 'tcp', port: 8081, pin: 'cmd:enqueue-remote,queue:q1' })
+          .client({ type: 'tcp', port: 8082, pin: 'cmd:enqueue-remote,queue:q2' })
           .use('../', {
             queues: ['q1', 'q2']
           })

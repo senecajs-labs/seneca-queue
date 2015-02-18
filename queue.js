@@ -12,7 +12,8 @@ function queue(options) {
   options = seneca.util.deepextend({
     role: 'queue',
     concurrency: 1,
-    queues: []
+    queues: [],
+    timeout: 5000
   }, options)
 
   // You can change the _role_ value for the plugin patterns.
@@ -33,11 +34,18 @@ function queue(options) {
     return !hooked
   })
 
-  var listEnqueues = _.memoize(function(cmd) {
-    return _.filter(seneca.list(), function(pattern) {
-      return pattern.role === role && pattern.hook === cmd
+  var blacklist = {}
+  function buildListEnqueues() {
+    return _.memoize(function(cmd) {
+      return _.filter(seneca.list(), function(pattern) {
+        return pattern.role === role &&
+               pattern.hook === cmd &&
+               !blacklist[pattern.queue]
+      })
     })
-  })
+  }
+
+  var listEnqueues = buildListEnqueues()
 
   function wrapHook(cmd) {
     seneca.add({
@@ -63,13 +71,19 @@ function queue(options) {
     delete args.cmd
 
     hookMemory('enqueue')
-    args = _.defaults(args, listEnqueues('enqueue')[round])
+    var queues = listEnqueues('enqueue')
+    if (queues.length === 0) {
+      return cb(new Error('no queue'))
+    }
 
-    seneca.act(args, cb)
-
-    if (++round === listEnqueues('enqueue').length) {
+    if (round >= queues.length) {
       round = 0
     }
+
+    args = _.defaults(args, queues[round])
+    round++
+
+    seneca.act(args, cb)
   })
 
   var enqueueRemote = 'enqueue-remote'
@@ -80,9 +94,27 @@ function queue(options) {
       type: 'remote',
       queue: name
     }, function(args, cb) {
+      var queue = args.queue
       args.cmd = enqueueRemote
       delete args.hook
-      seneca.act(args, cb)
+      seneca.act(args, function(err) {
+        if (err) {
+          args.cmd = 'enqueue'
+          delete args.type
+          delete args.queue
+          delete args.actid$
+          delete args.plugin$
+          delete args.ungate$
+          setTimeout(function() {
+            console.log('ERROR, relaunching', args)
+            blacklist[queue] = true
+            listEnqueues = buildListEnqueues()
+            seneca.act(args, cb)
+          }, options.timeout)
+        } else {
+          cb()
+        }
+      })
     })
   })
 

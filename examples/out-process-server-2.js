@@ -1,6 +1,6 @@
 var s = require('seneca')()
           .use(require('../'))
-          .listen({ port: 8082 })
+          .listen({ type: 'tcp', port: 8082 })
 
 s.add({
   task: 'my task'
