@@ -28,7 +28,7 @@ describe('seneca queue', function() {
 
     s.act({ role: 'queue', cmd: 'start' }, function(err) {
       if (err) { return done(err) }
-      s.act({ role: 'queue', cmd: 'enqueue', task: task }, function(err) {
+      s.act({ role: 'queue', cmd: 'enqueue', msg: task }, function(err) {
         if (err) { return done(err) }
       })
     })
@@ -41,7 +41,7 @@ describe('seneca queue', function() {
     }
 
     // first enqueing
-    s.act({ role: 'queue', cmd: 'enqueue', task: task })
+    s.act({ role: 'queue', cmd: 'enqueue', msg: task })
 
     // then we add the task handler
     s.add({
@@ -71,7 +71,7 @@ describe('seneca queue', function() {
 
     s.act({ role: 'queue', cmd: 'start' })
     s.act({ role: 'queue', cmd: 'stop' })
-    s.act({ role: 'queue', cmd: 'enqueue', task: task }, done)
+    s.act({ role: 'queue', cmd: 'enqueue', msg: task }, done)
   })
 
   it('should restart a worker', function(done) {
@@ -90,7 +90,7 @@ describe('seneca queue', function() {
 
     s.act({ role: 'queue', cmd: 'start' })
     s.act({ role: 'queue', cmd: 'stop' })
-    s.act({ role: 'queue', cmd: 'enqueue', task: task })
+    s.act({ role: 'queue', cmd: 'enqueue', msg: task })
     s.act({ role: 'queue', cmd: 'start' })
   })
 })

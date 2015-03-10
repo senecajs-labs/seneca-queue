@@ -5,6 +5,6 @@ var s = require('seneca')()
             queues: ['q1', 'q2']
           })
 
-s.act({ role: 'queue', cmd: 'enqueue', task: { task: 'my task', param: 1 }})
-s.act({ role: 'queue', cmd: 'enqueue', task: { task: 'my task', param: 2 }})
-s.act({ role: 'queue', cmd: 'enqueue', task: { task: 'my task', param: 3 }})
+s.act({ role: 'queue', cmd: 'enqueue', msg: { task: 'my task', param: 1 }})
+s.act({ role: 'queue', cmd: 'enqueue', msg: { task: 'my task', param: 2 }})
+s.act({ role: 'queue', cmd: 'enqueue', msg: { task: 'my task', param: 3 }})

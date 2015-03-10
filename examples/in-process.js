@@ -18,4 +18,4 @@ s.add({
 
 console.log('worked if you see OK')
 s.act({ role: 'queue', cmd: 'start' })
-s.act({ role: 'queue', cmd: 'enqueue', task: task })
+s.act({ role: 'queue', cmd: 'enqueue', msg: task })

@@ -65,7 +65,7 @@ describe('seneca queue', function() {
     server1.act({ role: 'queue', cmd: 'start' })
     server2.act({ role: 'queue', cmd: 'start' })
 
-    client.act({ role: 'queue', cmd: 'enqueue', task: task }, function(err) {
+    client.act({ role: 'queue', cmd: 'enqueue', msg: task }, function(err) {
       if (err) { return done(err) }
     })
   })
@@ -104,10 +104,10 @@ describe('seneca queue', function() {
     server1.act({ role: 'queue', cmd: 'start' })
     server2.act({ role: 'queue', cmd: 'start' })
 
-    client.act({ role: 'queue', cmd: 'enqueue', task: task1 }, function(err) {
+    client.act({ role: 'queue', cmd: 'enqueue', msg: task1 }, function(err) {
       if (err) { return done(err) }
     })
-    client.act({ role: 'queue', cmd: 'enqueue', task: task2 }, function(err) {
+    client.act({ role: 'queue', cmd: 'enqueue', msg: task2 }, function(err) {
       if (err) { return done(err) }
     })
   })
