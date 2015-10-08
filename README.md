@@ -104,7 +104,7 @@ documentation, examples, extra testing, or new features please get in touch.
 
 
 ## License
-Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
+Copyright Matteo Collina and other contributors 2015, Licensed under [MIT][].
 
 
 [travis-badge]: https://travis-ci.org/Senecajs/seneca-queue.png?branch=master
