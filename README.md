@@ -1,6 +1,25 @@
+![Seneca](http://senecajs.org/files/assets/seneca-logo.png)
+> A [Seneca.js][] job queue plugin
+
 # seneca-queue
 
-A job queue for Seneca
+[![Gitter][gitter-badge]][gitter-url]
+
+[![js-standard-style][standard-badge]][standard-style]
+
+If you are new to Seneca in general, please take a look at [senecajs.org][]. We have everything from
+tutorials to sample apps to help get you up and running quickly.
+
+If you're using this module, and need help, you can:
+
+- Post a [github issue][],
+- Tweet to [@senecajs][],
+- Ask on the [Gitter][gitter-url].
+
+## Install
+```sh
+npm install seneca-queue
+```
 
 ## Usage in the same process
 
@@ -79,7 +98,25 @@ s.add({
 console.log('worked if you see OK')
 s.act({ role: 'queue', cmd: 'start' })
 ```
+## Contributing
+The [Senecajs org][] encourage open participation. If you feel you can help in any way, be it with
+documentation, examples, extra testing, or new features please get in touch.
+
 
 ## License
+Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
 
-MIT
+
+[travis-badge]: https://travis-ci.org/Senecajs/seneca-queue.png?branch=master
+[travis-url]: https://travis-ci.org/Senecajs/seneca-queue
+[gitter-badge]: https://badges.gitter.im/Join%20Chat.svg
+[gitter-url]: https://gitter.im/senecajs/seneca
+[standard-badge]: https://raw.githubusercontent.com/feross/standard/master/badge.png
+[standard-style]: https://github.com/feross/standard
+
+[MIT]: ./LICENSE
+[Senecajs org]: https://github.com/senecajs/
+[senecajs.org]: http://senecajs.org/
+[Seneca.js]: https://www.npmjs.com/package/seneca
+[github issue]: https://github.com/Senecajs/seneca-queue/issues
+[@senecajs]: http://twitter.com/senecajs
