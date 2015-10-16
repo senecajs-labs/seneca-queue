@@ -79,7 +79,7 @@ s.act({ role: 'queue', cmd: 'enqueue', msg: { task: 'my task', param: 2 }})
 s.act({ role: 'queue', cmd: 'enqueue', msg: { task: 'my task', param: 3 }})
 ```
 
-### server1
+### server 1
 
 ```js
 var s = require('seneca')()
@@ -97,7 +97,7 @@ console.log('worked if you see OK two times')
 s.act({ role: 'queue', cmd: 'start' })
 ```
 
-### server2
+### server 2
 
 ```js
 var s = require('seneca')()
