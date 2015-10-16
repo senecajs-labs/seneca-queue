@@ -1,29 +1,35 @@
 
-var queue = require('../')
+var queue = require('..')
 var seneca = require('seneca')
 var expect = require('chai').expect
 var async = require('async')
 
-describe('seneca queue', function() {
+var Lab = require('lab')
+var lab = exports.lab = Lab.script()
+var describe = lab.describe
+var it = lab.it
+var beforeEach = lab.beforeEach
+var afterEach = lab.afterEach
+
+describe('seneca queue', function () {
   var client
   var server1
   var server2
 
-  beforeEach(function(done) {
-    server1 = seneca()
+  beforeEach(function (done) {
+    server1 = seneca({log: 'silent'})
                 .use(queue)
                 .listen(8081)
 
-    server1.ready(function() {
-      server2 = seneca()
+    server1.ready(function () {
+      server2 = seneca({log: 'silent'})
                   .use(queue)
                   .listen(8082)
 
-      server2.ready(function() {
-
-        client = seneca()
-                  .client({ port: 8081, pin:'cmd:enqueue-remote,queue:queue1' })
-                  .client({ port: 8082, pin:'cmd:enqueue-remote,queue:queue2' })
+      server2.ready(function () {
+        client = seneca({log: 'silent'})
+                  .client({ port: 8081, pin: 'cmd:enqueue-remote,queue:queue1' })
+                  .client({ port: 8082, pin: 'cmd:enqueue-remote,queue:queue2' })
                   .use(queue, {
                     queues: [
                       'queue1',
@@ -35,13 +41,13 @@ describe('seneca queue', function() {
     })
   })
 
-  afterEach(function(done) {
-    async.each([server1, server2], function(server, cb) {
+  afterEach(function (done) {
+    async.each([server1, server2], function (server, cb) {
       server.close(cb)
     }, done)
   })
 
-  it('should process a task on the first worker', function(done) {
+  it('should process a task on the first worker', function (done) {
     var task = {
       task: 'my task',
       param: 42
@@ -49,7 +55,7 @@ describe('seneca queue', function() {
 
     server1.add({
       task: 'my task'
-    }, function(args, cb) {
+    }, function (args, cb) {
       expect(args).to.include(task)
       cb()
       done()
@@ -57,7 +63,7 @@ describe('seneca queue', function() {
 
     server2.add({
       task: 'my task'
-    }, function(args, cb) {
+    }, function (args, cb) {
       cb()
       done(new Error('this should never be called'))
     })
@@ -65,12 +71,12 @@ describe('seneca queue', function() {
     server1.act({ role: 'queue', cmd: 'start' })
     server2.act({ role: 'queue', cmd: 'start' })
 
-    client.act({ role: 'queue', cmd: 'enqueue', msg: task }, function(err) {
+    client.act({ role: 'queue', cmd: 'enqueue', msg: task }, function (err) {
       if (err) { return done(err) }
     })
   })
 
-  it('should process a task on both workers', function(done) {
+  it('should process a task on both workers', function (done) {
     var task1 = {
       task: 'my task',
       param: 1
@@ -83,20 +89,20 @@ describe('seneca queue', function() {
 
     server1.add({
       task: 'my task'
-    }, function(args, cb) {
+    }, function (args, cb) {
       expect(args).to.include(task1)
       cb()
-      if (--count == 0) {
+      if (--count === 0) {
         done()
       }
     })
 
     server2.add({
       task: 'my task'
-    }, function(args, cb) {
+    }, function (args, cb) {
       expect(args).to.include(task2)
       cb()
-      if (--count == 0) {
+      if (--count === 0) {
         done()
       }
     })
@@ -104,10 +110,10 @@ describe('seneca queue', function() {
     server1.act({ role: 'queue', cmd: 'start' })
     server2.act({ role: 'queue', cmd: 'start' })
 
-    client.act({ role: 'queue', cmd: 'enqueue', msg: task1 }, function(err) {
+    client.act({ role: 'queue', cmd: 'enqueue', msg: task1 }, function (err) {
       if (err) { return done(err) }
     })
-    client.act({ role: 'queue', cmd: 'enqueue', msg: task2 }, function(err) {
+    client.act({ role: 'queue', cmd: 'enqueue', msg: task2 }, function (err) {
       if (err) { return done(err) }
     })
   })

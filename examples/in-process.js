@@ -1,5 +1,5 @@
 var s = require('seneca')()
-          .use(require('../'))
+          .use(require('..'))
 var assert = require('assert')
 
 var task = {
