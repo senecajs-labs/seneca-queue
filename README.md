@@ -5,8 +5,6 @@
 [![Build Status][travis-badge]][travis-url]
 [![Gitter][gitter-badge]][gitter-url]
 
-[![js-standard-style][standard-badge]][standard-style]
-
 A plugin that allows you to create and use queues.
 
 - __Version:__ 0.2.0
@@ -127,8 +125,6 @@ Copyright Matteo Collina and Senecajs.org contributors, 2015, Licensed under [MI
 [travis-url]: https://travis-ci.org/senecajs/seneca-queue
 [gitter-badge]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/senecajs/seneca
-[standard-badge]: https://raw.githubusercontent.com/feross/standard/master/badge.png
-[standard-style]: https://github.com/feross/standard
 
 [MIT]: ./LICENSE
 [Senecajs org]: https://github.com/senecajs/
