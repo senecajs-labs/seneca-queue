@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "./lib/queue.js",
   "scripts": {
-    "test": "lab test/*.test.js -r console -v -L -m 3000"
+    "test": "lab test/*.test.js -r console -v -L -m 3000 -c -t 90"
   },
   "keywords": [
     "seneca",
