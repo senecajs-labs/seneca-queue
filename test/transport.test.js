@@ -1,7 +1,7 @@
 
 var queue = require('..')
 var seneca = require('seneca')
-var expect = require('chai').expect
+var expect = require('code').expect
 var async = require('async')
 
 var Lab = require('lab')
