@@ -8,7 +8,7 @@
 A plugin that allows you to create and use queues.
 
 - __Version:__ 0.2.0
-- __Tested on:__ Seneca 0.7
+- __Tested on:__ Seneca 0.7, 0.8
 - __Node:__ 0.10, 0.12, 4
 
 If you're using this module, and need help, you can:
@@ -112,6 +112,34 @@ s.add({
 console.log('worked if you see OK')
 s.act({ role: 'queue', cmd: 'start' })
 ```
+
+The tasks will be distributed among the servers in round robin. If a server fails to respond, it is blacklisted and won't receive any task (unless the requests are marked fatal$, in that case the instance will be closed as intended)
+
+## Options
+
+It is possible to pass additional options when registering the queue plugin, as shown below
+
+```js
+var s = require('seneca')()
+var assert = require('assert')
+
+s.use('queue', {
+  role: 'queue',
+  concurrency: 1
+})
+```
+
+- role, default: 'queue'. This is the role to be used for start, stop and enqueue commands, you can change it in case of a conflict with other action patterns or if you want to register two different queues.
+- concurrency, default: 1. How many task to process in parallel. Currently working only with the in-memory queue
+
+## Implementing queues
+
+seneca-queue provide a simple in-memory implementation, but more can be created. The implementation should add three "hook" actions to the seneca instance: `'role:queue,hook:start',type:my queue'`,`'role:queue,hook:stop',type:my queue'`,`'role:queue,hook:enqueue',type:my queue'`.
+After the implementing plugin and actions are registered, seneca-queue will automatically recognize and start using it.
+
+For examples see the in-memory implementation (https://github.com/senecajs/seneca-queue/blob/master/lib/memory.js) or the amazon sqs one (https://github.com/LucaLanziani/seneca-sqs-queue)
+
+
 ## Contributing
 The [Senecajs org][] encourages open participation. If you feel you can help in any way, be it with
 documentation, examples, extra testing, or new features please get in touch.
