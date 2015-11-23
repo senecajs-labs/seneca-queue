@@ -3,6 +3,9 @@
   "version": "0.2.0",
   "description": "A multi-transport job queue for Seneca",
   "author": "Matteo Collina <hello@matteocollina.com>",
+  "contributors": [
+    "Paolo Chiodi (https://github.com/paolochiodi)"
+  ],
   "license": "MIT",
   "main": "./lib/queue.js",
   "scripts": {
