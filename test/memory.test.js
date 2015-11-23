@@ -14,7 +14,7 @@ describe('seneca queue', function () {
     var s
 
     beforeEach(function (done) {
-      s = seneca({log: 'silent'})
+      s = seneca({log: 'silent', debug: { undead: true }})
         .use(queue)
         .ready(done)
     })
@@ -99,6 +99,39 @@ describe('seneca queue', function () {
       s.act({ role: 'queue', cmd: 'stop' })
       s.act({ role: 'queue', cmd: 'enqueue', msg: task })
       s.act({ role: 'queue', cmd: 'start' })
+    })
+
+    it('should raise an error if no msg is passed', function (done) {
+      s.add({
+        task: 'my task'
+      }, function (args, cb) {
+        cb()
+      })
+
+      var alreadyCalled = false
+
+      s.error(function (err) {
+        // hack to mitigate this bug in seneca 0.7 and 0.8
+        // https://github.com/senecajs/seneca/issues/245
+        if (alreadyCalled) {
+          return
+        }
+        alreadyCalled = true
+        expect(err).to.be.an.object()
+        done()
+      })
+
+      s.act({role: 'queue', cmd: 'start'}, function (err) {
+        if (err) {
+          return done(err)
+        }
+
+        s.act({ role: 'queue', cmd: 'enqueue' }, function (err) {
+          if (err) {
+            return done(err)
+          }
+        })
+      })
     })
   })
 })
