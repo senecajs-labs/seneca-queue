@@ -1,6 +1,6 @@
 
-var queue = require('..')
-var seneca = require('seneca')
+var Queue = require('..')
+var Seneca = require('seneca')
 var expect = require('code').expect
 
 var Lab = require('lab')
@@ -14,8 +14,8 @@ describe('seneca queue', function () {
     var s
 
     beforeEach(function (done) {
-      s = seneca({log: 'silent', debug: { undead: true }})
-        .use(queue)
+      s = Seneca({log: 'silent', debug: { undead: true }})
+        .use(Queue)
         .ready(done)
     })
 
