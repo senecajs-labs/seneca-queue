@@ -2,17 +2,16 @@
 > A [Seneca.js][] job queue plugin
 
 # seneca-queue
+[![npm version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
-[![Gitter][gitter-badge]][gitter-url]
+[![Coverage Status][coveralls-badge]][coveralls-url]
+[![Dependency Status][david-badge]][david-url]
+[![Gitter chat][gitter-badge]][gitter-url]
 
 A plugin that allows you to create and use queues.
 
-- __Version:__ 0.2.0
-- __Tested on:__ Seneca 0.7, 0.8
-- __Node:__ 0.10, 0.12, 4
 
 If you're using this module, and need help, you can:
-
 - Post a [github issue][],
 - Tweet to [@senecajs][],
 - Ask on the [Gitter][gitter-url].
@@ -149,8 +148,14 @@ documentation, examples, extra testing, or new features please get in touch.
 Copyright Matteo Collina and Senecajs.org contributors, 2015, Licensed under [MIT][].
 
 
+[npm-badge]: https://img.shields.io/npm/v/seneca-queue.svg
+[npm-url]: https://npmjs.com/package/seneca-queue
 [travis-badge]: https://travis-ci.org/senecajs/seneca-queue.png?branch=master
 [travis-url]: https://travis-ci.org/senecajs/seneca-queue
+[coveralls-badge]:https://coveralls.io/repos/senecajs/seneca-queue/badge.svg?branch=master&service=github
+[coveralls-url]: https://coveralls.io/github/senecajs/seneca-queue?branch=master
+[david-badge]: https://david-dm.org/senecajs/seneca-queue.svg
+[david-url]: https://david-dm.org/senecajs/seneca-queue
 [gitter-badge]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/senecajs/seneca
 

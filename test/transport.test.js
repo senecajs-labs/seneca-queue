@@ -1,8 +1,8 @@
 
-var queue = require('..')
-var seneca = require('seneca')
+var Queue = require('..')
+var Seneca = require('seneca')
 var expect = require('code').expect
-var async = require('async')
+var Async = require('async')
 
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
@@ -18,24 +18,24 @@ describe('seneca queue', function () {
     var server2
 
     beforeEach(function startServer1 (done) {
-      server1 = seneca({ log: 'silent' })
-        .use(queue)
+      server1 = Seneca({ log: 'silent' })
+        .use(Queue)
         .listen(8081)
         .ready(done)
     })
 
     beforeEach(function startServer2 (done) {
-      server2 = seneca({ log: 'silent' })
-        .use(queue)
+      server2 = Seneca({ log: 'silent' })
+        .use(Queue)
         .listen(8082)
         .ready(done)
     })
 
     beforeEach(function startClient (done) {
-      client = seneca({ log: 'silent' })
+      client = Seneca({ log: 'silent' })
         .client({ port: 8081, pin: 'cmd:enqueue-remote,queue:queue1' })
         .client({ port: 8082, pin: 'cmd:enqueue-remote,queue:queue2' })
-        .use(queue, {
+        .use(Queue, {
           queues: [
             'queue1',
             'queue2'
@@ -45,7 +45,7 @@ describe('seneca queue', function () {
     })
 
     afterEach(function (done) {
-      async.each([server1, server2, client], function (server, cb) {
+      Async.each([server1, server2, client], function (server, cb) {
         server.close(cb)
       }, done)
     })
