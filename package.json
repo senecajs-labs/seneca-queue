@@ -1,6 +1,6 @@
 {
   "name": "seneca-queue",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A multi-transport job queue for Seneca",
   "author": "Matteo Collina <hello@matteocollina.com>",
   "contributors": [
