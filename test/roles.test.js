@@ -135,7 +135,7 @@ describe('seneca queue', function () {
         task: 'my task'
       }, function (args, cb) {
         expect(args).to.include(task)
-        expect(args.plugin$).to.include({ tag: secondTime ? 'queue2' : 'queue1' })
+        expect(args.role$).to.equal(secondTime ? 'role2' : 'role1')
         cb()
 
         if (secondTime) {
