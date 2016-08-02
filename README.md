@@ -145,13 +145,13 @@ documentation, examples, extra testing, or new features please get in touch.
 
 
 ## License
-Copyright Matteo Collina and Senecajs.org contributors, 2015, Licensed under [MIT][].
+Copyright Matteo Collina and Senecajs.org contributors, 2015-2016, Licensed under [MIT][].
 
 
 [npm-badge]: https://img.shields.io/npm/v/seneca-queue.svg
 [npm-url]: https://npmjs.com/package/seneca-queue
-[travis-badge]: https://travis-ci.org/senecajs/seneca-queue.png?branch=master
-[travis-url]: https://travis-ci.org/senecajs/seneca-queue
+[travis-badge]: https://travis-ci.org/senecajs-labs/seneca-queue.png?branch=master
+[travis-url]: https://travis-ci.org/senecajs-labs/seneca-queue
 [coveralls-badge]:https://coveralls.io/repos/senecajs/seneca-queue/badge.svg?branch=master&service=github
 [coveralls-url]: https://coveralls.io/github/senecajs/seneca-queue?branch=master
 [david-badge]: https://david-dm.org/senecajs/seneca-queue.svg
