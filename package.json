@@ -20,13 +20,13 @@
     "task",
     "async"
   ],
-  "homepage": "https://github.com/senecajs/seneca-queue",
+  "homepage": "https://github.com/senecajs-labs/seneca-queue",
   "repository": {
     "type": "git",
-    "url": "https://github.com/senecajs/seneca-queue.git"
+    "url": "https://github.com/senecajs-labs/seneca-queue.git"
   },
   "bugs": {
-    "url": "https://github.com/senecajs/seneca-queue/issues"
+    "url": "https://github.com/senecajs-labs/seneca-queue/issues"
   },
   "dependencies": {
     "async": "^1.5.0",
