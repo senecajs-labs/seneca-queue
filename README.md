@@ -99,7 +99,7 @@ s.act({ role: 'queue', cmd: 'start' })
 ```js
 var s = require('seneca')()
           .use(require('../'))
-          .listen({ port: 8081 })
+          .listen({ port: 8082 })
 
 s.add({
   task: 'my task'
